@@ -6,7 +6,7 @@ const app = express();
 
 cleanDirectory('components');
 
-components.forEach(({ name, url }) => readAndCreateFile(name, url));
+components.forEach(({ fileName, src }) => readAndCreateFile(fileName, src));
 
 app.use('/components', express.static(`${__dirname}/components`));
 

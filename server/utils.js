@@ -7,9 +7,9 @@ const cleanDirectory = directory => {
   rimraf.sync(`${__dirname}/${directory}`);
 };
 
-const readAndCreateFile = (componentName, url) => {
+const readAndCreateFile = (fileName, src) => {
   const options = {
-    url: url,
+    url: src,
     method: 'GET',
     accept: 'application/json'
   };
@@ -17,7 +17,7 @@ const readAndCreateFile = (componentName, url) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
-  const path = dir + componentName;
+  const path = dir + fileName;
   const ws = fs.createWriteStream(path);
 
   request(options)
@@ -25,7 +25,7 @@ const readAndCreateFile = (componentName, url) => {
       console.log(error);
     })
     .on('close', function() {
-      console.log(`${componentName} loaded`);
+      console.log(`${fileName} loaded`);
     })
     .pipe(ws);
 };

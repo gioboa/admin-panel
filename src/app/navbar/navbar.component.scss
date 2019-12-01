@@ -1,0 +1,18 @@
+.navbar-wrapper {
+  font-size: 16px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+  height: 74px;
+
+  .settings {
+    float: right;
+    color: #66615b;
+    text-decoration: none;
+    font-size: 20px;
+    margin-top: 23px;
+
+    p {
+      display: inline;
+      margin: 0 20px 0 10px;
+    }
+  }
+}

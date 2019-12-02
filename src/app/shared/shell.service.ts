@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ShellConfig } from './shell.model';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShellService {
-  constructor() {}
+  constructor(private state: StateService) {}
 
   private config: ShellConfig;
 
@@ -72,24 +73,24 @@ export class ShellService {
     const configItem = this.config.clients[name];
 
     // Don't load bundle twice
-    if (configItem.loaded) return;
-    configItem.loaded = true;
+    if (!configItem.loaded) {
+      configItem.loaded = true;
 
-    const content = document.getElementById(this.config.outletId || 'content');
+      // Add script-tag(s) to load bundle
+      const content = document.getElementById(this.config.outletId || 'content');
+      const files = typeof configItem.src === 'string' ? [configItem.src] : configItem.src;
+      files.forEach(src => {
+        const script = document.createElement('script');
+        script.src = src;
+        content.appendChild(script);
+      });
 
-    // Add tag for micro frontend, e. g. <client-a></client-a>
-    const element = document.createElement(configItem.element);
-    element['hidden'] = !location.hash.startsWith('#' + configItem.route);
-    content.appendChild(element);
-
-    // Add script-tag(s) to load bundle
-    const files = typeof configItem.src === 'string' ? [configItem.src] : configItem.src;
-
-    files.forEach(src => {
-      const script = document.createElement('script');
-      script.src = src;
-      content.appendChild(script);
-    });
+      // Add tag for micro frontend
+      const element = document.createElement(configItem.element);
+      element['hidden'] = !location.hash.startsWith('#' + configItem.route);
+      content.appendChild(element);
+      this.state.registerClient(element);
+    }
   }
 
   preloadClients() {

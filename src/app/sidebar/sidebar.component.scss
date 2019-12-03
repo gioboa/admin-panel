@@ -6,10 +6,11 @@
   width: 260px;
   z-index: 4;
   box-shadow: inset -1px 0px 0px 0px #dddddd;
+  background-color: #4e73df;
 
   .logo {
     padding: 18px 0px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+    border-bottom: 1px solid white;
 
     .text {
       text-transform: uppercase;
@@ -32,7 +33,7 @@
         margin: 0 0 0 55px;
         font-weight: 600;
         text-transform: uppercase;
-        color: #66615b;
+        color: white;
         display: inline;
       }
     }
@@ -50,7 +51,7 @@
         padding-left: 25px;
         padding-right: 25px;
         opacity: 0.7;
-        color: #66615b;
+        color: white;
         text-decoration: none;
 
         i {
@@ -67,7 +68,7 @@
           font-size: 12px;
           font-weight: 600;
           text-transform: uppercase;
-          color: #66615b;
+          color: white;
           display: inline;
         }
       }
